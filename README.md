@@ -7,4 +7,4 @@ This project is based on the *Full Modern React Tutorial* series provided by *Th
 
 ## Installation 
 Ensure you have the latest version of Node.js on your system. 
-Use the command `npx create-react-app <project_name>` which installs the node_modules folder including the React.js library and all the required packages. 
+Use the command `npx create-react-app <project_name>` to install the node_modules folder which includes the React.js library and all the required packages. 
