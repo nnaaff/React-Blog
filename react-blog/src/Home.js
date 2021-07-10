@@ -1,25 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ArtList from './ArtList';
 
 const Home = () => {
 
-  const [articles, setArticles] = useState( [
-    { title: 'My New Blog', body: 'lorem ipsum...', author: 'A', id: 1 },
-    { title: 'Welcome Party!', body: 'lorem ipsum...', author: 'B', id: 2 },
-    { title: 'Wellness Tips', body: 'lorem ipsum...', author: 'A', id: 3 }
-  ] );
+  const [articles, setArticles] = useState( null );
 
-  const handleDelete = ( id ) => {
-    // use setArticles() here to update 'articles'
-    // 'filter' does not modify original list
-    const newArticles = articles.filter( (article) => article.id !== id );
-    setArticles( newArticles );
-  }
+  const [name, setName] = useState( 'A' );
+
+  useEffect( () => {
+    fetch( "http://localhost:8000/articles" ) 
+      .then( (res) => {
+        return res.json();
+      } )
+      .then( (data) => {
+        // console.log( data );
+        setArticles( data );
+      } );
+  }, [] );
 
   return (
     <div className="home">
-      <ArtList articles={ articles } title="Article List:" handleDelete={ handleDelete } />
-      <ArtList articles={ articles.filter( (article) => article.author === 'A' ) } title="A's Articles:" handleDelete={ handleDelete } />
+      { articles && < ArtList articles={ articles } title="Article List:" /> }
     </div>
   );
 }
