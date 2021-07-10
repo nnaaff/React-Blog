@@ -1,5 +1,5 @@
 // const ArtList = ( props ) => {
-const ArtList = ( { articles, title } ) => {
+const ArtList = ( { articles, title, handleDelete } ) => {
 
   // const articles = props.articles;
   // const title = props.title;
@@ -13,6 +13,7 @@ const ArtList = ( { articles, title } ) => {
         <div className="article-preview" key={ article.id }>
           <h2> { article.title } </h2>
           <p> Written by: { article.author } </p>
+          <button onClick={ () => { handleDelete( article.id ) } }> Delete </button>
         </div>
 
       ) ) }

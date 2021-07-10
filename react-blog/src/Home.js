@@ -9,10 +9,17 @@ const Home = () => {
     { title: 'Wellness Tips', body: 'lorem ipsum...', author: 'A', id: 3 }
   ] );
 
+  const handleDelete = ( id ) => {
+    // use setArticles() here to update 'articles'
+    // 'filter' does not modify original list
+    const newArticles = articles.filter( (article) => article.id !== id );
+    setArticles( newArticles );
+  }
+
   return (
     <div className="home">
-      <ArtList articles={ articles } title="List of Articles:" />
-      <ArtList articles={ articles.filter( (article) => article.author === 'A' ) } title="A's Articles:" />
+      <ArtList articles={ articles } title="Article List:" handleDelete={ handleDelete } />
+      <ArtList articles={ articles.filter( (article) => article.author === 'A' ) } title="A's Articles:" handleDelete={ handleDelete } />
     </div>
   );
 }
