@@ -1,37 +1,10 @@
 import { useState, useEffect } from 'react';
 import ArtList from './ArtList';
+import useFetch from './useFetch';
 
 const Home = () => {
 
-  const [articles, setArticles] = useState( null );
-  const [isPending, setIsPending] = useState( true );
-  const [error, setError] = useState( null );
-
-  useEffect( () => {
-
-    fetch( "http://localhost:8000/articles" )
-
-      .then( (res) => {
-        if( !res.ok ) {  // if fetch Successful but problem with 'res' obj --> issue with endpoint
-          throw Error( 'Could not fetch data for this resource!' );
-        }
-        return res.json();
-      } )
-
-      .then( (data) => {
-        // console.log( data );
-        setArticles( data );
-        setIsPending( false );
-        setError( null );  // if any subsequent fetch is successful --> error msg shouldn't show up
-      } )
-
-      .catch( (err) => {  // if fetch Unsuccessful --> network problem
-        // console.log( err.message );
-        setIsPending( false );
-        setError( err.message );
-      } );
-
-  }, [] );  // only runs upon initial rendering of 'Home' component
+  const { data: articles, isPending, error } = useFetch( "http://localhost:8000/articles" );
 
   return (
     <div className="home">
