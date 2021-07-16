@@ -7,8 +7,9 @@ const useFetch = ( url ) => {
   const [error, setError] = useState( null );
 
   useEffect( () => {
+    const abortCont = new AbortController();
 
-    fetch( url )
+    fetch( url, { signal: abortCont.signal } )
 
       .then( (res) => {
         if( !res.ok ) {  // if fetch Successful but problem with 'res' obj --> issue with endpoint
@@ -28,11 +29,21 @@ const useFetch = ( url ) => {
       // & catches the other error Thrown Manually when --> 'res.ok' is 'false'
       .catch( (err) => {
         // console.log( err.message );
-        setIsPending( false );
-        setError( err.message );
+        if( err.name === 'AbortError' )
+          console.log( "Aborting Fetch." );
+        else {
+          setIsPending( false );
+          setError( err.message );
+        }
+        
       } );
 
-  }, [url] );  // only runs upon render of component ref. by url 
+      return () => {
+        abortCont.abort();
+        console.log( "Cleanup" );  // when "Home" component unmounts
+      }
+
+  }, [url] );  // only runs upon render of component ref. by url
 
   return { data, isPending, error };
 

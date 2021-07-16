@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import ArtList from './ArtList';
 import useFetch from './useFetch';
 
