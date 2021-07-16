@@ -1,8 +1,6 @@
-// const ArtList = ( props ) => {
-const ArtList = ( { articles, title } ) => {
+import { Link } from 'react-router-dom';
 
-  // const articles = props.articles;
-  // const title = props.title;
+const ArtList = ( { articles, title } ) => {
 
   return (
     <div className="article-list">
@@ -11,11 +9,13 @@ const ArtList = ( { articles, title } ) => {
       { articles.map( (article) => (
 
         <div className="article-preview" key={ article.id }>
-          <h2> { article.title } </h2>
-          <p> Written by: { article.author } </p>
+          <Link to={ `/articles/${article.id}` }>
+            <h2> { article.title } </h2>
+            <p> Written by: { article.author } </p>
+          </Link>
         </div>
 
-      ) ) } 
+      ) ) }
     </div>
   );
 }
